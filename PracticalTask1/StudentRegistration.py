@@ -16,18 +16,35 @@ studentDetails = []
 def inputStudentDetails():
     global totalFees
 
-    studentID = input("Input student ID:")
-    studentName = input("Input student name:")
-    course = input("Input course name:")
-    courseFee = float(input("Input course fee:"))
-    dollarCourseFee = "${:,.2f}".format(courseFee)
-    totalFees += courseFee
+    # import simpledialog object
+    from tkinter import simpledialog
+    # get user input
+    studentID = simpledialog.askstring('Dialog Title', 'Input student ID:')
+    studentName = simpledialog.askstring('Dialog Title', 'Input student name:')
+    course = simpledialog.askstring('Dialog Title', 'Input course name:')
+    courseFee = simpledialog.askfloat('Dialog Title', 'Input course fee:')
 
-    studentDetails.append("{0:<8} {1:<18} {2:<20} {3:>12}".format(studentID, studentName, course, dollarCourseFee))
+    # if: any information in user input is null or empty
+    # tell user input student details unsuccessful
+    # else: format the user input and gather student course fee into total fee
+    if (studentID is None or not studentID) or (studentName is None or not studentName) or (course is None or not course) or (courseFee is None):
+        print("\nInput student details unsuccessful\n")
+    else:
+        # add dollar sign of the course fee
+        dollarCourseFee = "${:,.2f}".format(courseFee)
 
-    printHeadings()
-    print("{0:<8} {1:<18} {2:<20} {3:>12}".format(studentID, studentName, course, dollarCourseFee))
-    return totalFees
+        # gather student course fee into total fee
+        totalFees += courseFee
+
+        # format student information
+        studentDetails.append("{0:<8} {1:<18} {2:<20} {3:>12}".format(studentID, studentName, course, dollarCourseFee))
+
+        # output formated heading and student information
+        printHeadings()
+        print("{0:<8} {1:<18} {2:<20} {3:>12}".format(studentID, studentName, course, dollarCourseFee))
+
+    # return total fee
+    return totalFees  
 
 
 # output total fee
@@ -41,7 +58,7 @@ inputStudentDetails()
 inputStudentDetails()
 print()
 printHeadings()
-print(studentDetails[0])
-print(studentDetails[1])
-print(studentDetails[2])
+# print out student details in studentDetails list
+for studentDetail in studentDetails:
+    print(studentDetail)
 outputTotalFee()

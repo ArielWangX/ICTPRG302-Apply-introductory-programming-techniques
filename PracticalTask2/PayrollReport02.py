@@ -1,54 +1,22 @@
-# opening file Employees.txt in read mode
-rawEmployeeFile = open("E:\\Programming\\ICTPRG302 Apply introductory programming\\AT1\\Employees.txt", "r")
-
-# reading the file
-data = rawEmployeeFile.readlines()
-
-# remove "\n" in each elment in data list
-for i in range(0, len(data)):
-    if data[i].endswith("\n"):
-        data[i] = data[i][:-1]
-
-# create list to store employee txt information
+# create list to store employee csv information
 employeeList = []
 
+# import csv module
+import csv
 
-# analyze data - store every employee information in a dictionary and add this dictionary to employeeList
-def analyzeEmployeeTxtData(dataList):  
-    id = ""
-    name = ""
-    position = ""
-    salary = 0.00
-   
-    i = 0
-    while i < len(dataList):
-        id = dataList[i]
-        name = dataList[i+1]
-        position = dataList[i+2]
-        salary = dataList[i+3]
-
-        # store each employee information in a dictionary
-        employee = {
-            "ID": id,
-            "Name": name, 
-            "Position": position,
-            "Salary": salary
-        }
-        
-        # add employee dictionary into employee list
-        employeeList.append(employee)    
-        i += 4
-
-        
-#  call analyze data function to make a list of dictionary to store employee information    
-analyzeEmployeeTxtData(data)
+# open and read file employees.csv into a dictionary
+# store every dictionary into list
+with open("E:\\Programming\\ICTPRG302 Apply introductory programming\\AT1\\employees.csv", "r") as csvFile:
+    reader = csv.DictReader(csvFile)
+    for row in reader:
+        employeeList.append(dict(row))
 
 
 # display each record of data on the screen
-def displayEmployeeTxtData(employeeList):
+def displayEmployeeCsvData(employeeList):
     # get value from employee dictionary
     for employee in employeeList:
-        id = employee["ID"]
+        id = employee["锘縀mpId"]   # the title from original csv file
         name = employee["Name"]
         position = employee["Position"]
         salary = float(employee["Salary"])
@@ -61,7 +29,7 @@ def displayEmployeeTxtData(employeeList):
 
 
 # call the function to display each record to the screen    
-displayEmployeeTxtData(employeeList)
+displayEmployeeCsvData(employeeList)
 
 
 # total pay of all employees
@@ -159,23 +127,31 @@ def payrollReport(employeeList):
 payrollReport(employeeList)
 
 
-# save payroll report to text file
+# save payroll report to csv file
 def exportPayrollReport(employeeList):
-    # will create a file, will be overwritten if the file exists
-    payrollReport = open("E:\Programming\ICTPRG302 Apply introductory programming\AT1\PayrollReport.txt", "w")
+    # will create a file and open to write
+    payrollReport = open("E:\Programming\ICTPRG302 Apply introductory programming\AT1\PayrollReport.csv", "w")
+
+    # prepare data for csv file
+    totalPayment = totalPay(employeeList)
+    num = numOfRecords(employeeList)
+    averagePayment = averagePay(employeeList)
+    managersTotalPayment = managersTotalPay(employeeList)
+    salesTotalPayment = salesTotalPay(employeeList)
+    adminTotalPayment = adminTotalPay(employeeList)
 
     # export payroll report into file
-    payrollReport.write("Total payroll:" + " " + "${:,.2f}".format(totalPay(employeeList)))
-    payrollReport.write("\nNumber on payroll:" + " " + str(numOfRecords(employeeList)))
-    payrollReport.write("\nAverage pay:" + " " + "${:,.2f}".format(averagePay(employeeList)))
+    payrollReport.write(f"Total payroll, {totalPayment}")
+    payrollReport.write(f"\nNumber on payroll, {num}")
+    payrollReport.write(f"\nAverage pay, {averagePayment}")
     payrollReport.write("\n")
-    payrollReport.write("\nTotal pay for:")
-    payrollReport.write("\nManagers " + "${:,.2f}".format(managersTotalPay(employeeList)))
-    payrollReport.write("\nSales " + "${:,.2f}".format(salesTotalPay(employeeList)))
-    payrollReport.write("\nAdmin " + "${:,.2f}".format(adminTotalPay(employeeList)))
+    payrollReport.write("\nTotal pay for")
+    payrollReport.write(f"\nManagers, {managersTotalPayment}")
+    payrollReport.write(f"\nSales, {salesTotalPayment}")
+    payrollReport.write(f"\nAdmin, {adminTotalPayment}")
 
     payrollReport.close()
 
 
-# call exportPayrollReport function and export payroll report to text file    
+# call exportPayrollReport function and export payroll report to csv file    
 exportPayrollReport(employeeList)

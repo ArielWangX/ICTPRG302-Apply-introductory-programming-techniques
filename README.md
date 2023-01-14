@@ -1,8 +1,4 @@
-# ICTPRG302-Apply-introductory-programming-techniques
-Certificate 4 Programming Course Assessment 1
-
-
-## PracticalTask3 Folder - Book Catalog Desktop App
+# PracticalTask3 Folder - Book Catalog Desktop App
 Find full app workflow on Miro [Book Catalog WorkFlow](https://miro.com/app/board/uXjVPyLXrfE=/?share_link_id=410176769098)
 
 

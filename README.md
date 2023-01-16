@@ -1,6 +1,8 @@
 # PracticalTask3 Folder - Book Catalog Desktop App
 Find full app workflow on Miro [Book Catalog WorkFlow](https://miro.com/app/board/uXjVPyLXrfE=/?share_link_id=410176769098)
-
+- A desktop app that manages book information.
+- Implemented Add, delete, and display books operations.
+- The app can sort book by price and search book by title.
 
 ### Main Menu UI
 ![menu](https://user-images.githubusercontent.com/109891752/212433477-4149a8dd-7a8c-4f02-9eb6-8da579fa68ca.JPG)
